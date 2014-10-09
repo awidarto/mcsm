@@ -55,8 +55,8 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'jayonexpress_db3',
-			'username'  => 'jayon',
+			'database'  => 'jayonexpress_db',
+			'username'  => 'root',
 			'password'  => 'bosseddy123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
