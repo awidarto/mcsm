@@ -60,6 +60,7 @@ return array(
 			'username'  => 'root',
 =======
 			'database'  => 'jayonexpress_main',
+
 			'username'  => 'jayon',
 >>>>>>> ac2b7374524a434c1709ff1cfbc80d2fc56f74a8
 			'password'  => 'bosseddy123',
