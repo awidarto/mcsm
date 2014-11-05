@@ -16,6 +16,8 @@
       {{ $order['shipping_address'] }}
     </p>
     <p>
+      Delivery Schedule :<br />
+      {{ $order['assignment_date']}}<br />
       Delivery Status :<br />
       {{ $order['status'] }}<br />
       {{ $order['deliverytime'] }}
@@ -28,9 +30,7 @@
       @if( $order['status'] == 'delivered' || ($order['status'] == 'pending' && $order['pending_count'] > 0) )
       <img class="responsive" src="{{ Helpers::get_fullpic($order['delivery_id']) }}" alt="{{ $order['delivery_id'] }}"><br />
       @endif
-      Recipient<br />
-      {{ $order['recipient_name'] }}<br />
-      Note :<br />
+      Recipient & Note :<br />
       {{ $order['delivery_note'] }}
       @if( $order['latitude'] != '' && $order['longitude'] )
       <?php
@@ -40,7 +40,7 @@
       <img class="responsive" src="https://maps.googleapis.com/maps/api/staticmap?center={{$point}}&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7C{{$point}}&key={{ Config::get('ks.static_map_key')}}" alt="{{ $order['delivery_id'] }}"><br />
       <p class="disclaimer">
         <strong>Disclaimer :</strong><br />
-        Location accuracy within 500 meters radius, depending on device GPS, telecom provider network, and Google map data accuracy.
+        Location accuracy within 500 meters radius, depending on device GPS, telecom provider network, and map provider data accuracy.
       </p>
       @endif
 
