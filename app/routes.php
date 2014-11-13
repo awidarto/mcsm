@@ -343,9 +343,9 @@ Route::get('track/{id?}/{more?}',function($id = null,$more = null){
             $idvar = phonenumber( trim($id),'21','62' );
             //print_r($idvar);
 
-            $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` LIKE  '%s'  ";
+            $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` = '%s'  ";
 
-            $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%');
+            $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%',trim($id));
 
             $order = Order::whereRaw($sql)
                 ->leftJoin('members', 'members.id', '=', 'merchant_id')
@@ -353,19 +353,27 @@ Route::get('track/{id?}/{more?}',function($id = null,$more = null){
                 ->take(3)
                 ->skip(0)
                 ->get()->toArray();
+
+            $ordercount = Order::whereRaw($sql)->count();
+            $more = ($ordercount <= 3)?null:'more';
+
         }else{
 
             $idvar = phonenumber( trim($id),'21','62' );
     //print_r($idvar);
 
-            $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` LIKE  '%s'  ";
+            $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` = '%s'  ";
 
-            $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%');
+            $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%',trim($id));
 
             $order = Order::whereRaw($sql)
                 ->leftJoin('members', 'members.id', '=', 'merchant_id')
                 ->orderBy('assignment_date','desc')
                 ->get()->toArray();
+
+            $ordercount = Order::whereRaw($sql)->count();
+            $more = null;
+
         }
 
         return View::make('tracklist')->with('order',$order)->with('phone',$id)->with('more',$more);
@@ -379,9 +387,9 @@ Route::post('track',function(){
 
     $idvar = phonenumber( trim($in['phone']),'21','62' );
     //print_r($idvar);
-    $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` LIKE  '%s'   ";
+    $sql = "`delivery_order_active`.`phone` LIKE  '%s' OR  `delivery_order_active`.`mobile1` LIKE  '%s' OR  `delivery_order_active`.`mobile2` LIKE  '%s' OR  `delivery_order_active`.`merchant_trans_id` LIKE  '%s' OR  `delivery_order_active`.`delivery_id` = '%s'   ";
 
-    $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%');
+    $sql = sprintf($sql, '%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%','%'.$idvar.'%', trim($in['phone']));
 
     $order = Order::whereRaw($sql)
                 ->leftJoin('members', 'members.id', '=', 'merchant_id')
@@ -392,13 +400,17 @@ Route::post('track',function(){
 
     $queries = DB::getQueryLog();
 
+    $ordercount = Order::whereRaw($sql)->count();
+    $more = ($ordercount <= 3)?null:'more';
+
     $log = array_merge($in, array( 'c'=>'trackdetail' ));
     Helpers::log($log);
+
 
     return View::make('tracklist')
         ->with('order',$order)
         ->with('phone',$idvar)
-        ->with('more',null);
+        ->with('more',$more);
 });
 
 Route::get('item/{did}/{phone}/{more?}',function($did,$phone,$more = null){
