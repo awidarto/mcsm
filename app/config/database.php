@@ -75,14 +75,7 @@ return array(
 			'host'      => 'localhost',
 			'username'  => 'root',
 			'database'  => 'jayonexpress_main',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-			'username'  => 'jayon',
->>>>>>> 2bb9f51e78449dc48dff89ccac5407cc1bcdb960
-=======
 			'username'  => 'root',
->>>>>>> a3da7eaf429e3a6ace641c21a2f244f7b107ddd4
 			'password'  => 'bosseddy123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
