@@ -75,7 +75,7 @@ return array(
 			'host'      => 'localhost',
 			'username'  => 'root',
 			'database'  => 'jayonexpress_main',
-			'username'  => 'root',
+			'username'  => 'jayonmobile',
 			'password'  => 'bosseddy123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
