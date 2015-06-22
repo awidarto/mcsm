@@ -32,6 +32,7 @@
     </form>
   </div>
 </div>
+<?php /*
 <div class="row">
     <div class="track-list-item">
       <p>
@@ -42,6 +43,7 @@
 <?php $cat = '';
     //print_r($shops);
  ?>
+
 @foreach($shops as $r)
     @if($cat != $r->shopcategoryLink)
       <div class="track-list-item merchant-cat logo">
@@ -68,7 +70,7 @@
     </div>
     <?php $cat = $r->shopcategoryLink ?>
 @endforeach
-
+*/?>
 {{--
 @foreach($shops as $r)
 

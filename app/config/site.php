@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'name'=> 'JEX',
+    'name'=> 'M-Courier',
     'ad'=>false
     );

@@ -74,7 +74,7 @@ return array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'username'  => 'root',
-			'database'  => 'jayonexpress_main',
+			'database'  => 'bilna_main',
 			'username'  => 'jayonmobile',
 			'password'  => 'bosseddy123',
 			'charset'   => 'utf8',
